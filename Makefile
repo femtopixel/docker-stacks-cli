@@ -1,4 +1,5 @@
 VERSION ?= 0.1.0
+CACHE ?= --no-cache=1
 FULLVERSION ?= ${VERSION}
 archs = amd64 arm64v8 arm32v6
 
@@ -8,7 +9,7 @@ build:
 	cp /usr/bin/qemu-*-static .
 	$(foreach arch,$(archs), \
 		cat Dockerfile | sed "s/FROM node:alpine/FROM ${arch}\/node:alpine/g" > .Dockerfile; \
-		docker build -t femtopixel/stacks-cli:${VERSION}-$(arch) -f .Dockerfile .;\
+		docker build -t femtopixel/stacks-cli:${VERSION}-$(arch) -f .Dockerfile ${CACHE} .;\
 	)
 publish:
 	docker push femtopixel/stacks-cli
