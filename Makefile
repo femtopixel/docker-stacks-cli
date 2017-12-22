@@ -5,9 +5,11 @@ archs = amd64 arm64v8 arm32v6
 
 .PHONY: all build publish latest
 all: build publish latest
+qemu-arm-static:
+	cp /usr/bin/qemu-arm-static .
 qemu-aarch64-static:
 	cp /usr/bin/qemu-aarch64-static .
-build: qemu-aarch64-static
+build: qemu-aarch64-static qemu-arm-static
 	$(foreach arch,$(archs), \
 		cat Dockerfile | sed "s/FROM node:alpine/FROM ${arch}\/node:alpine/g" > .Dockerfile; \
 		docker build -t femtopixel/stacks-cli:${VERSION}-$(arch) -f .Dockerfile ${CACHE} .;\
