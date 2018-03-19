@@ -13,6 +13,11 @@ manifests:
       variant: v8
       os: linux
   -
+    image: femtopixel/stacks-cli:$VERSION-arm64v8
+    platform:
+      architecture: arm64
+      os: linux
+  -
     image: femtopixel/stacks-cli:$VERSION-amd64
     platform:
       architecture: amd64
